@@ -19,6 +19,18 @@ class boardsSeeder extends Seeder
         // Drop all rows
         DB::table("boards")->delete();
 
-        factory(App\Board::class, 20)->create();
+        factory(App\Board::class, 20)->create()->each(function ($board){
+
+            // Genereate random integer to decide how many threads will the boadr have
+            $numberOfThreads = rand(3,15);
+
+            // Generating treads
+            $threads = factory(App\Thread::class, $numberOfThreads)->make();
+
+            $board->threads()->saveMany($threads);
+
+
+
+        });
     }
 }

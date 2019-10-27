@@ -22,6 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Boards
 Route::get('/boards', 'BoardController@index')->name('boards');
+// Board
+Route::get('/board/{link}', 'BoardController@show')->name('board');
 
 
 // Create boards

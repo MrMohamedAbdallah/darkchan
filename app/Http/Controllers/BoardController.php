@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Board;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Session;
@@ -68,12 +69,20 @@ class BoardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Board  $board
+     * @param  \App\Board  $link
      * @return \Illuminate\Http\Response
      */
-    public function show(Board $board)
+    public function show($link)
     {
-        //
+        try{
+            // Search for the board
+            $board = Board::where("link", "=", $link)->with("threads")->firstOrFail();
+            $threads = $board->threads;
+
+            return view("boards.board", compact("board", "threads"));
+        } catch(ModelNotFoundException $e){
+            return abort(404);
+        }
     }
 
     /**
