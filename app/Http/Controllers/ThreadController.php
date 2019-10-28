@@ -43,7 +43,18 @@ class ThreadController extends Controller
             'name'  => 'nullable|min:3',
             'password'  => 'required|min:10|max:20',
             'content'  => 'required|min:10',
+            'file'  => 'nullable|file|mimes:jpeg,png,gif,jpg|max:2048',
         ]);
+
+        // Store the file
+        $filePath = '';
+        if($request->file){
+            $filePath = $request->file->store('public/files');
+            // Remove the public path
+            $filePath = explode('/',$filePath);
+            $filePath = array_slice($filePath, 1);
+            $filePath = implode('/', $filePath);
+        }
 
         // Create new thread
         $thread = new Thread();
@@ -54,7 +65,7 @@ class ThreadController extends Controller
         $thread->password = $request->password;
         $thread->content = $request->content;
         $thread->last_action = date('Y-m-d H:i:s');
-        $thread->file = '';
+        $thread->file = $filePath;
         $thread->spoiler = $request->spoiler ? 1 : 0;
 
         // Save

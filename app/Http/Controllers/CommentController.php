@@ -41,7 +41,20 @@ class CommentController extends Controller
             'name'  => 'nullable',
             'content'   => 'required',
             'password'   => 'required|min:3|max:20',
+            'file'  => 'nullable|file|mimes:jpeg,png,gif,jpg|max:2048',
         ]);
+
+        // Store the file
+        $filePath = '';
+        if($request->file){
+            $filePath = $request->file->store('public/files');
+            // Remove the public path
+            $filePath = explode('/',$filePath);
+            $filePath = array_slice($filePath, 1);
+            $filePath = implode('/', $filePath);
+        }
+
+
 
         // Create new comment
         $comment = new Comment();
@@ -50,7 +63,7 @@ class CommentController extends Controller
         $comment->content   = $request->content;
         $comment->thread_id = $request->thread;
         $comment->password  = $request->password;
-        $comment->file  = '';
+        $comment->file  = $filePath;
         $comment->spoiler = $request->spoiler ? 1 : 0;
 
         // Save the comment

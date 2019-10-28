@@ -44,9 +44,19 @@ class BoardController extends Controller
         $request->validate([
             'name' => 'required|min:3|max:15|unique:boards,name',
             'link' => 'required|min:1|max:2|unique:boards,link',
+            'cover' =>  'nullable|file|mimes:jpeg,png,gif,jpg|max:2048',
             'msg' => 'min:5',
         ]);
 
+        // Store the file
+        $filePath = '';
+        if($request->cover){
+            $filePath = $request->cover->store('public/files');
+            // Remove the public path
+            $filePath = explode('/',$filePath);
+            $filePath = array_slice($filePath, 1);
+            $filePath = implode('/', $filePath);
+        }
 
         // Create new board
         $board = new Board();
@@ -55,7 +65,8 @@ class BoardController extends Controller
         $board->link = $request->link;
         $board->msg = $request->msg;
         $board->nsfw = $request->nsfw ? 1 : 0;
-        $board->cover = "dddd";
+        $board->cover = $filePath;
+
 
         $board->save();
         

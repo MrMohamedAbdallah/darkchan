@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-6 mx-auto bg-dark text-primary rounded p-3">
-            <form action="{{ route("board.store") }}" method="POST" enctyp="multipart/form-data">
+            <form action="{{ route("board.store") }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 {{-- Form Group --}}
                 <div class="form-group">
@@ -33,7 +33,7 @@
                 {{-- /Form Group --}}
                 {{-- Form Group --}}
                 <div class="form-group">
-                    <label for="name">Cover: </label>
+                    <label for="cover">Cover: </label>
                     <input type="file" name="cover" id="cover" class="form-control">
                 </div>
                 {{-- /Form Group --}}
