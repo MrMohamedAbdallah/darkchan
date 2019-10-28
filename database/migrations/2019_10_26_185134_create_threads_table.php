@@ -21,6 +21,7 @@ class CreateThreadsTable extends Migration
             $table->string("file");
             $table->string("password");
             $table->boolean("spoiler");
+            $table->dateTime("last_action");
             $table->unsignedBigInteger("board_id");
             $table->foreign("board_id")->references("id")->on("boards")->onDelete("cascade")->onUpdate("cascade");
             $table->timestamps();

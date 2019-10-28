@@ -77,8 +77,8 @@ class BoardController extends Controller
         try{
             // Search for the board
             $board = Board::where("link", "=", $link)->with(["threads" => function($query){
-                // Sort by newest
-                $query->orderBy('created_at', 'DESC');
+                // Sort by newest action
+                $query->orderBy('last_action', 'DESC');
 
                 $query->with(['comments' => function($q){
                     return $q->orderBy('id', 'DESC');

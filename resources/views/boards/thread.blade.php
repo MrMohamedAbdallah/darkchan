@@ -65,7 +65,7 @@
     <div class="mx-auto my-3">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route("thread", $thread->id) }}">{{ $thread->title }}</a> <span class="text-danger">{{ $thread->name }}</span> <small>{{ $thread->created_at }}</small>
+                <a href="{{ route("thread", $thread->id) }}">{{ $thread->title }}</a> <span class="text-danger">{{ $thread->name }}</span> <small>{{ $thread->created_at->diffForHumans() }}</small>
                 @if($thread->spoiler)
                 <span class="text-danger font-weight-bolder">SPOILER</span>
                 @endif
@@ -79,7 +79,7 @@
                 <div class="bg-dark p-3 rounded border text-primary">
                     @foreach($thread->comments as $comment)
                     <div class="card-header bg-dark text-white">
-                        <span class="text-danger">{{ $comment->name }}</span> <small>{{ $comment->created_at }}</small>
+                        <span class="text-danger">{{ $comment->name }}</span> <small>{{ $comment->created_at->diffForHumans() }}</small>
                         @if($comment->spoiler)
                         <span class="text-primary font-weight-bolder">SPOILER</span>
                         @endif

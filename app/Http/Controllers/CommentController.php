@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -52,9 +53,13 @@ class CommentController extends Controller
         $comment->file  = '';
         $comment->spoiler = $request->spoiler ? 1 : 0;
 
-
         // Save the comment
         $comment->save();
+
+        // Changing the thread last_action value
+        DB::table('threads')->where('id', '=', $comment->thread_id)->update([
+            'last_action'   => date('Y-m-d H:i:s')
+        ]);
 
         return back();
     }

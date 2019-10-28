@@ -25,6 +25,8 @@ $factory->define(App\Thread::class, function (Faker $faker) {
         "file"     => "",
         "password" => Hash::make("password"),
         "spoiler" => rand() % 2,
+        'last_action'   => date('Y-m-d H:i:s'),
+
     ];
 
 });

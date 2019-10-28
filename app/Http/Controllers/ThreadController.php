@@ -53,6 +53,7 @@ class ThreadController extends Controller
         $thread->name = $request->name ? $request->name : 'Anonymous';
         $thread->password = $request->password;
         $thread->content = $request->content;
+        $thread->last_action = date('Y-m-d H:i:s');
         $thread->file = '';
         $thread->spoiler = $request->spoiler ? 1 : 0;
 
