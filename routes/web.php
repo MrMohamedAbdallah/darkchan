@@ -29,3 +29,7 @@ Route::get('/board/{link}', 'BoardController@show')->name('board');
 // Create boards
 Route::get('/boards/create', 'BoardController@create')->name("board.create");
 Route::post('/boards/create', 'BoardController@store')->name("board.store");
+
+
+// Threads
+Route::post('/threads/create', 'ThreadController@store')->name("thread.create");

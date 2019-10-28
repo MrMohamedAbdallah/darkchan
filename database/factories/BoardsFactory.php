@@ -24,7 +24,16 @@ $factory->define(App\Thread::class, function (Faker $faker) {
         "content"  => $faker->paragraph(2),
         "file"     => "",
         "password" => Hash::make("password"),
-        "board_id" => 1
+        "spoiler" => rand() % 2,
+    ];
+
+});
+$factory->define(App\Comment::class, function (Faker $faker) {
+    return [
+            "name"  => 'Anonymous',
+            "content"   => $faker->paragraph(3),
+            "file"  => '',
+            "password"  => Hash::make('password'),
     ];
 
 });

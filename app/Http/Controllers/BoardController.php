@@ -76,7 +76,16 @@ class BoardController extends Controller
     {
         try{
             // Search for the board
-            $board = Board::where("link", "=", $link)->with("threads")->firstOrFail();
+            $board = Board::where("link", "=", $link)->with(["threads" => function($query){
+                // Sort by newest
+                $query->orderBy('created_at', 'DESC');
+
+                $query->with(['comments' => function($q){
+                    return $q->orderBy('id', 'DESC');
+                }]);
+
+
+            }])->firstOrFail();
             $threads = $board->threads;
 
             return view("boards.board", compact("board", "threads"));

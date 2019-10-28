@@ -15,4 +15,5 @@ class Board extends Model
         return $this->hasMany('App\Thread');
     }
 
+    
 }

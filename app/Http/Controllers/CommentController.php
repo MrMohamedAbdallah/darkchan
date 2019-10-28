@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Thread;
+use App\Comment;
 use Illuminate\Http\Request;
 
-class ThreadController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,39 +35,16 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the "create thread" request
-        $request->validate([
-            'board'  => 'required|exists:boards,id',
-            'title' => 'required|max:64',
-            'name'  => 'nullable|min:3',
-            'password'  => 'required|min:10|max:20',
-            'content'  => 'required|min:10',
-        ]);
-
-        // Create new thread
-        $thread = new Thread();
-
-        $thread->board_id = $request->board;
-        $thread->title = $request->title;
-        $thread->name = $request->name ? $request->name : 'Anonymous';
-        $thread->password = $request->password;
-        $thread->content = $request->content;
-        $thread->file = '';
-        $thread->spoiler = $request->spoiler ? 1 : 0;
-
-        // Save
-        $thread->save();
-
-        return back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show(Comment $comment)
     {
         //
     }
@@ -75,10 +52,10 @@ class ThreadController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Thread $thread)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -87,10 +64,10 @@ class ThreadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Thread $thread)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
@@ -98,10 +75,10 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy(Comment $comment)
     {
         //
     }
