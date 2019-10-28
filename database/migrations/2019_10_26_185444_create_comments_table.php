@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->text("content");
             $table->string("file");
             $table->string("password");
+            $table->boolean("spoiler");
             $table->unsignedBigInteger("thread_id");
             $table->foreign("thread_id")->references("id")->on("threads")->onDelete("cascade")->onUpdate("cascade");
             $table->timestamps();

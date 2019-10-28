@@ -35,7 +35,28 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'thread'    => 'required|exists:threads,id',
+            'name'  => 'nullable',
+            'content'   => 'required',
+            'password'   => 'required|min:3|max:20',
+        ]);
+
+        // Create new comment
+        $comment = new Comment();
+
+        $comment->name      = $request->name ? $request->name : 'Anonymous';
+        $comment->content   = $request->content;
+        $comment->thread_id = $request->thread;
+        $comment->password  = $request->password;
+        $comment->file  = '';
+        $comment->spoiler = $request->spoiler ? 1 : 0;
+
+
+        // Save the comment
+        $comment->save();
+
+        return back();
     }
 
     /**

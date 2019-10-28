@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Board;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -67,9 +68,16 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show($id)
     {
-        //
+        try{
+            $thread = Thread::with('comments')->findOrFail($id);
+            $board = Board::findOrFail($thread->board_id);
+
+            return view('boards.thread', compact('board', 'thread'));
+        } catch (ModelNotFoundException $e){
+            return abort(404);
+        }
     }
 
     /**

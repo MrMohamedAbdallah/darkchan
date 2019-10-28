@@ -34,6 +34,7 @@ $factory->define(App\Comment::class, function (Faker $faker) {
             "content"   => $faker->paragraph(3),
             "file"  => '',
             "password"  => Hash::make('password'),
+            'spoiler'   => rand() % 2,
     ];
 
 });

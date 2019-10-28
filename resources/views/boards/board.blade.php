@@ -17,7 +17,7 @@
     <div class="my-4">
         <fieldset>
             <legend>Create Thread</legand>
-            <form action="{{ route("thread.create") }}" method="post">
+            <form action="{{ route("comment.create") }}" method="post">
                 @csrf
                 <input type="hidden" name="board" value="{{ $board->id }}">
                 {{-- Form Group --}}
@@ -67,7 +67,7 @@
     <div class="mx-auto my-3">
         <div class="card">
             <div class="card-header">
-                {{ $thread->title }} <span class="text-danger">{{ $thread->name }}</span> <small>{{ $thread->created_at }}</small>
+                <a href="{{ route("thread", $thread->id) }}">{{ $thread->title }}</a> <span class="text-danger">{{ $thread->name }}</span> <small>{{ $thread->created_at }}</small>
                 @if($thread->spoiler)
                 <span class="text-danger font-weight-bolder">SPOILER</span>
                 @endif
