@@ -88,6 +88,19 @@
             </div>
             <div class="card-body">
                 <div class="card-text">
+
+                    {{-- Delete --}}
+                    <form action="{{ route("thread.delete") }}" method="post">
+                        @csrf
+                        @method("DELETE")
+                        <input type="hidden" name="thread" value="{{ $thread->id }}">
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Passowrd">
+                        <button class="btn btn-danger my-3">Delete</button>
+                    </form>
+                    {{-- Delete --}}
+
+
                     @if($thread->file)
                     <img src="/storage/{{ $thread->file }}" alt="" class="img-fluid">
                     @endif
@@ -102,6 +115,18 @@
                         <small>{{ $comment->created_at->diffForHumans() }}</small>
                     </div>
                     <div class="card-body text-white">
+
+                        {{-- Delete --}}
+                        <form action="{{ route("comment.delete") }}" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <input type="hidden" name="comment" value="{{ $comment->id }}">
+                            <input type="password" name="password" id="password" class="form-control"
+                                placeholder="Passowrd">
+                            <button class="btn btn-danger my-3">Delete</button>
+                        </form>
+                        {{-- Delete --}}
+
                         @if($comment->file)
                         <img src="/storage/{{ $comment->file }}" alt="" class="img-fluid">
                         @endif

@@ -103,6 +103,18 @@
                         @endif
                     </div>
                     <div class="card-body text-white">
+
+                        {{-- Delete --}}
+                        <form action="{{ route("comment.delete") }}" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <input type="hidden" name="comment" value="{{ $comment->id }}">
+                            <input type="password" name="password" id="password" class="form-control"
+                                placeholder="Passowrd">
+                            <button class="btn btn-danger my-3">Delete</button>
+                        </form>
+                        {{-- Delete --}}
+
                         @if($comment->file)
                         <img src="/storage/{{ $comment->file }}" alt="" class="img-fluid">
                         @endif

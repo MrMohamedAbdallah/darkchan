@@ -34,6 +34,8 @@ Route::post('/boards/create', 'BoardController@store')->name("board.store");
 // Threads
 Route::get('/thread/{id}', 'ThreadController@show')->name("thread");
 Route::post('/threads/create', 'ThreadController@store')->name("thread.create");
+Route::delete('/threads/delete', 'ThreadController@destroy')->name("thread.delete");
 
 // Comments
 Route::post('/comment/create', 'CommentController@store')->name("comment.create");
+Route::delete('/comment/delete', 'CommentController@destroy')->name("comment.delete");

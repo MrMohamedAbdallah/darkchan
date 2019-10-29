@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Thread;
 use App\Board;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class ThreadController extends Controller
 {
@@ -48,10 +51,10 @@ class ThreadController extends Controller
 
         // Store the file
         $filePath = '';
-        if($request->file){
+        if ($request->file) {
             $filePath = $request->file->store('public/files');
             // Remove the public path
-            $filePath = explode('/',$filePath);
+            $filePath = explode('/', $filePath);
             $filePath = array_slice($filePath, 1);
             $filePath = implode('/', $filePath);
         }
@@ -62,7 +65,7 @@ class ThreadController extends Controller
         $thread->board_id = $request->board;
         $thread->title = $request->title;
         $thread->name = $request->name ? $request->name : 'Anonymous';
-        $thread->password = $request->password;
+        $thread->password = Hash::make($request->password);
         $thread->content = $request->content;
         $thread->last_action = date('Y-m-d H:i:s');
         $thread->file = $filePath;
@@ -82,12 +85,12 @@ class ThreadController extends Controller
      */
     public function show($id)
     {
-        try{
+        try {
             $thread = Thread::with('comments')->findOrFail($id);
             $board = Board::findOrFail($thread->board_id);
 
             return view('boards.thread', compact('board', 'thread'));
-        } catch (ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return abort(404);
         }
     }
@@ -121,8 +124,42 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy(Request $request)
     {
-        //
+        // validate
+        $request->validate([
+            'thread'    => 'required|numeric',
+            'password'  => 'required|min:10|max:20'
+        ]);
+
+        try {
+
+            $thread = Thread::findOrFail($request->thread);
+
+            // Check the password
+            if (Hash::check($request->password, $thread->password)) {
+                // Get the file path
+                $filePath = $thread->file;
+
+                // Delete the hash
+                $thread->delete();
+
+                // Delete the file
+                Storage::delete('public/' . $filePath);
+
+
+                // Flush
+                Session::flash('success', 'Thread has been deleted');
+                return redirect()->route('boards');
+            } else {
+                // Flush
+                Session::flash('fail', 'Password is wrong');
+                return back();
+            }
+        } catch (ModelNotFoundException $e) {
+            return abort(400);
+        }
     }
 }
+
+// V3rYsTr0nGP@ss#0rd

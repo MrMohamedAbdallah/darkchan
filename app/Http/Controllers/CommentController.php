@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+
 
 class CommentController extends Controller
 {
@@ -62,7 +66,7 @@ class CommentController extends Controller
         $comment->name      = $request->name ? $request->name : 'Anonymous';
         $comment->content   = $request->content;
         $comment->thread_id = $request->thread;
-        $comment->password  = $request->password;
+        $comment->password  = Hash::make($request->password);
         $comment->file  = $filePath;
         $comment->spoiler = $request->spoiler ? 1 : 0;
 
@@ -117,8 +121,40 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request)
     {
-        //
+        // validate
+        $request->validate([
+            'comment'    => 'required|numeric',
+            'password'  => 'required|min:10|max:20'
+        ]);
+
+        try {
+
+            $comment = Comment::findOrFail($request->comment);
+
+            // Check the password
+            if (Hash::check($request->password, $comment->password)) {
+                // Get the file path
+                $filePath = $comment->file;
+
+                // Delete the hash
+                $comment->delete();
+
+                // Delete the file
+                Storage::delete('public/' . $filePath);
+
+
+                // Flush
+                Session::flash('success', 'Comment has been deleted');
+                return redirect()->route('boards');
+            } else {
+                // Flush
+                Session::flash('fail', 'Password is wrong');
+                return back();
+            }
+        } catch (ModelNotFoundException $e) {
+            return abort(400);
+        }
     }
 }
