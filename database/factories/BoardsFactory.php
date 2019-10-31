@@ -12,7 +12,7 @@ $factory->define(App\Board::class, function (Faker $faker) {
         'link'  => $faker->unique()->name(),
         'msg'   => $faker->text(64),
         'cover' => '',
-        'nsfw'  => intval(rand() * 10) % 2
+        'nsfw'  => rand() % 2
     ];
 
 });
@@ -22,7 +22,8 @@ $factory->define(App\Thread::class, function (Faker $faker) {
         "title"    => $faker->text(30),
         "name"     => "Anonymous", 
         "content"  => $faker->paragraph(2),
-        "file"     => "",
+        "file1"     => "",
+        "file2"     => "",
         "password" => Hash::make("password"),
         "spoiler" => rand() % 2,
         'last_action'   => date('Y-m-d H:i:s'),
@@ -34,7 +35,8 @@ $factory->define(App\Comment::class, function (Faker $faker) {
     return [
             "name"  => 'Anonymous',
             "content"   => $faker->paragraph(3),
-            "file"  => '',
+            "file1"  => '',
+            "file2"  => '',
             "password"  => Hash::make('password'),
             'spoiler'   => rand() % 2,
     ];

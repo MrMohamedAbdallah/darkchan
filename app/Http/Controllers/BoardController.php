@@ -45,7 +45,7 @@ class BoardController extends Controller
             'name' => 'required|min:3|max:15|unique:boards,name',
             'link' => 'required|min:1|max:2|unique:boards,link',
             'cover' =>  'nullable|file|mimes:jpeg,png,gif,jpg|max:2048',
-            'msg' => 'min:5',
+            'msg' => 'nullable|min:5',
         ]);
 
         // Store the file
@@ -63,7 +63,7 @@ class BoardController extends Controller
         
         $board->name = $request->name;
         $board->link = $request->link;
-        $board->msg = $request->msg;
+        $board->msg = $request->msg ? $request->msg : '' ;
         $board->nsfw = $request->nsfw ? 1 : 0;
         $board->cover = $filePath;
 

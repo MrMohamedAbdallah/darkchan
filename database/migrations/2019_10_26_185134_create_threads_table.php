@@ -18,7 +18,8 @@ class CreateThreadsTable extends Migration
             $table->text("title");
             $table->string("name");
             $table->text("content");
-            $table->string("file");
+            $table->string("file1");
+            $table->string("file2");
             $table->string("password");
             $table->boolean("spoiler");
             $table->dateTime("last_action");

@@ -89,6 +89,16 @@
             </div>
             <div class="card-body">
                 <div class="card-text">
+
+                    @if($thread->file1)
+                    <div>
+                        <img src="/storage/{{ $thread->file1 }}" alt="" class="img-fluid">
+                    </div>
+                    <div>
+                        <img src="/storage/{{ $thread->file2 }}" alt="" class="img-fluid">
+                    </div>
+                    @endif
+
                     {{ $thread->content }}
                 </div>
 
@@ -115,8 +125,13 @@
                         </form>
                         {{-- Delete --}}
 
-                        @if($comment->file)
-                        <img src="/storage/{{ $comment->file }}" alt="" class="img-fluid">
+                        @if($comment->file1)
+                        <div>
+                            <img src="/storage/{{ $comment->file1 }}" alt="" class="img-fluid">
+                        </div>
+                        <div>
+                            <img src="/storage/{{ $comment->file2 }}" alt="" class="img-fluid">
+                        </div>
                         @endif
                         {{ $comment->content }}
                     </div>

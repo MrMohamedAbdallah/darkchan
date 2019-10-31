@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
+use Image;
+
 class ThreadController extends Controller
 {
     /**
@@ -50,13 +52,33 @@ class ThreadController extends Controller
         ]);
 
         // Store the file
-        $filePath = '';
+        $filePath1 = '';
+        $filePath2 = '';
         if ($request->file) {
-            $filePath = $request->file->store('public/files');
+            $filePath1 = $request->file->store('public/files');
             // Remove the public path
-            $filePath = explode('/', $filePath);
-            $filePath = array_slice($filePath, 1);
-            $filePath = implode('/', $filePath);
+            // File 1
+            $filePath1 = explode('/', $filePath1);
+            $filePath1 = array_slice($filePath1, 1);
+            $filePath1 = implode('/', $filePath1);
+            // File 2
+            $filePath2 = explode('/', $filePath2);
+            $filePath2 = array_slice($filePath2, 1);
+            $filePath2 = implode('/', $filePath2);
+            try {
+
+                // Reize the second image
+                $img = Image::make($request->file->getRealPath())->resize(200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+                // Save the resized iamge
+                $filePath2 = explode('.', $filePath1);
+                $filePath2 = $filePath2[0] . '-small' . '.' . $filePath2[1];
+                $img->save('../storage/app/public/' . $filePath2);
+            } catch (Exception $e) {
+                die("File uploading error");
+            }
         }
 
         // Create new thread
@@ -68,7 +90,8 @@ class ThreadController extends Controller
         $thread->password = Hash::make($request->password);
         $thread->content = $request->content;
         $thread->last_action = date('Y-m-d H:i:s');
-        $thread->file = $filePath;
+        $thread->file1 = $filePath1;
+        $thread->file2 = $filePath2;
         $thread->spoiler = $request->spoiler ? 1 : 0;
 
         // Save
@@ -139,13 +162,15 @@ class ThreadController extends Controller
             // Check the password
             if (Hash::check($request->password, $thread->password)) {
                 // Get the file path
-                $filePath = $thread->file;
+                $filePath1 = $thread->file1;
+                $filePath2 = $thread->file2;
 
                 // Delete the hash
                 $thread->delete();
 
                 // Delete the file
-                Storage::delete('public/' . $filePath);
+                Storage::delete('public/' . $filePath1);
+                Storage::delete('public/' . $filePath2);
 
 
                 // Flush

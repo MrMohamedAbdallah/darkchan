@@ -101,8 +101,8 @@
                     {{-- Delete --}}
 
 
-                    @if($thread->file)
-                    <img src="/storage/{{ $thread->file }}" alt="" class="img-fluid">
+                    @if($thread->file1)
+                    <img src="/storage/{{ $thread->file1 }}" alt="" class="img-fluid">
                     @endif
                     {{ $thread->content }}
                 </div>
