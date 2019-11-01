@@ -11,16 +11,50 @@ use Illuminate\Support\Facades\Session;
 class BoardController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Home page
+     */
+    public function home()
+    {
+        // Get all boards
+        $boards = Board::all();
+
+        return view('home')->with('boards', $boards);
+    }
+
+
+    /**
+     * Show all boards
      */
     public function index()
     {
         // Get all boards
         $boards = Board::all();
+        $title = 'Boards';
 
-        return view('boards.boards')->with('boards', $boards);
+        return view('boards.boards', compact("boards", "title"));
+    }
+    /**
+     * Show all SFW only
+     */
+    public function sfw()
+    {
+        // Get all boards
+        $boards = Board::where('nsfw', '=', 0)->get();
+        $title = 'SFW Boards';
+
+
+        return view('boards.boards', compact("boards", "title"));
+    }
+    /**
+     * Show all NSFW only
+     */
+    public function nsfw()
+    {
+        // Get all boards
+        $boards = Board::where('nsfw', '=', 1)->get();
+        $title = 'NSFW Boards';
+
+        return view('boards.boards', compact("boards", "title"));
     }
 
     /**

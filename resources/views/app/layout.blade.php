@@ -1,5 +1,5 @@
 {{-- Head --}}
-@include("app.head")
+@include("app.header")
 
 <div class="container">
     @if(Session::has("success"))

@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'BoardController@home')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 // Boards
-Route::get('/boards', 'BoardController@index')->name('boards');
+Route::get('/boards', 'BoardController@index')->name('boards'); // All boards
+Route::get('/boards/sfw', 'BoardController@sfw')->name('boards.sfw'); // SFW boards
+Route::get('/boards/nsfw', 'BoardController@nsfw')->name('boards.nsfw'); // NSFW boards
 // Board
 Route::get('/board/{link}', 'BoardController@show')->name('board');
 
