@@ -6,10 +6,24 @@
         <ul class="menu-list">
             <li hide-parent>Hide comment</li>
             <li>Report comment</li>
-            <li>Delete comment</li>
+            <li data-show="#comment-form{{ $comment->id }}">Delete comment</li>
         </ul>
     </div>
     <!-- /Menu -->
+
+
+    <form id="comment-form{{ $comment->id }}" action="{{ route('comment.delete') }}" method="post" class="delete-form">
+        @csrf
+        @method("DELETE")
+        <input type="hidden" name="comment" value="{{ $comment->id }}">
+        <div class="form-group">
+            <label>passwrod</label>
+            <input type="password" name="password">
+        </div>
+        <div class="form-group">
+            <button type="submit">Delete</button>
+        </div>
+    </form>
 
     <!-- Header -->
     <div class="thread-header">

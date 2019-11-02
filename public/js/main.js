@@ -12,3 +12,12 @@ $("#hide-create-thread").click(function(){
 $("[hide-parent]").click(function(){
     $(this).parent().parent().parent().fadeOut(500);
 })
+
+// Showing delete form
+$("[data-show]").click(function(){
+    console.log($(this).data('show'));
+    
+    $($(this).data('show')).css({
+        "display": 'block'
+    });
+})

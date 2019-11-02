@@ -21,7 +21,6 @@
             <i class="fas fa-ellipsis-v menu-icon"></i>
             <ul class="menu-list">
                 <li>Report post</li>
-                <li>Delete post</li>
             </ul>
         </div>
         <!-- /Menu -->
@@ -100,32 +99,46 @@
             <!-- Group -->
             <div class="form-group">
                 <label for="name">name: </label>
-                <input type="text" name="name" id="name" placeholder="Anonymous" class="form-control">
-                <span class="invalid-feedback">Is not a valid email</span>
+                <input type="text" name="name" id="name" placeholder="Anonymous" class="form-control @error('name') invalid @enderror">
+                @error('name')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             <!-- /Group -->
             {{-- Group --}}
             <div class="form-group">
                 <label for="password">Password: </label>
-                <input type="texst" name="password" id="password" class="form-control" value="V3rYsTr0nGP@ss#0rd">
+                <input type="texst" name="password" id="password" class="form-control @error('password') invalid @enderror" value="V3rYsTr0nGP@ss#0rd">
+                @error('password')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             {{-- /Group --}}
             {{-- Group --}}
             <div class="form-group">
                 <label for="content">Body: </label>
-                <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="content" id="content" cols="30" rows="10" class="form-control @error('content') invalid @enderror"></textarea>
+                @error('content')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             {{-- /Group --}}
             {{-- Group --}}
             <div class="form-group">
                 <label for="spoiler">Spoiler: </label>
-                <input type="checkbox" name="spoiler" id="spoiler">
+                <input type="checkbox" name="spoiler @error('spoiler') invalid @enderror" id="spoiler">
+                @error('spoiler')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             {{-- /Group --}}
             {{-- Group --}}
             <div class="form-group">
                 <label for="file">File: </label>
-                <input type="file" name="file" id="file">
+                <input type="file" name="file" id="file" class=" @error('file') invalid @enderror">
+                @error('file')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             {{-- /Group --}}
 

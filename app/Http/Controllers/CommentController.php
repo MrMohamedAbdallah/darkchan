@@ -164,6 +164,8 @@ class CommentController extends Controller
                 $filePath1 = $comment->file1;
                 $filePath2 = $comment->file2;
 
+                $threadID = $comment->thread_id;    // Thread id to redirect to
+
                 // Delete the hash
                 $comment->delete();
 
@@ -174,7 +176,7 @@ class CommentController extends Controller
 
                 // Flush
                 Session::flash('success', 'Comment has been deleted');
-                return redirect()->route('boards');
+                return redirect()->route('thread', $threadID);
             } else {
                 // Flush
                 Session::flash('fail', 'Password is wrong');

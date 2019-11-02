@@ -32,6 +32,9 @@
                     <a href="{{ route("boards.nsfw") }}"><i class="fas fa-hand-paper"></i>NSFW boards</a>
                 </li>
                 <li>
+                    <a href="{{ route("board.create") }}"><i class="fas fa-hand-paper"></i>Create Board</a>
+                </li>
+                <li>
                     <a href="/login" class="active"><i class="fas fa-sign-in-alt"></i>Login</a>
                 </li>
             </ul>
