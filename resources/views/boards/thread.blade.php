@@ -126,7 +126,7 @@
             {{-- Group --}}
             <div class="form-group">
                 <label for="spoiler">Spoiler: </label>
-                <input type="checkbox" name="spoiler @error('spoiler') invalid @enderror" id="spoiler">
+                <input type="checkbox" name="spoiler" class="@error('spoiler') invalid @enderror" id="spoiler">
                 @error('spoiler')
                 <span class="invalid-feedback">{{ $message }}</span>
                 @enderror

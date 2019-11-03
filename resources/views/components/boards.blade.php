@@ -1,12 +1,14 @@
 <!-- Boards -->
 {{-- <section class="mt-100" id="boards"> --}}
 <section class="pt-60 boards-page" id="boards">
+
+
     <div class="title">
         <h1>{{ $slot }}</h1>
     </div>
-    <ul class="boards col-8">
+    <ul class="boards col-8 col-md-10 col-sm-12">
         @foreach($boards as $board)
-        <li>
+        <li class="col-3 col-md-4 col-sm-6">
             @if($board->nsfw)
             <a href="{{ route('board', $board->link) }}" class="nsfw-link">
                 {{ $board->name }} <span class="nsfw">(NSFW)</span>
@@ -19,6 +21,8 @@
         </li>
         @endforeach
     </ul>
+
+
 </section>
 <!-- /Boards -->
 

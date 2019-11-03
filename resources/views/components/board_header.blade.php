@@ -1,4 +1,4 @@
-<div style="padding-bottom: 75px"></div>
+<div class="header-margin"></div>
 <!-- Banner -->
 @if($board->cover)
 <div class="col-10 mx-auto">
@@ -13,7 +13,7 @@
     <h1>/ <a href="{{ route("board", $board->link) }}"><mark>{{ $board->link }}</mark></a> / - <mark>{{ $board->name }}</mark></h1>
     <h1>
         <mark>
-            <a href="#">Catalog</a>
+            <a href="{{ route("board.catalog", $board->link) }}">Catalog</a>
         </mark>
         -
         <mark>

@@ -24,6 +24,7 @@ Route::get('/boards/sfw', 'BoardController@sfw')->name('boards.sfw'); // SFW boa
 Route::get('/boards/nsfw', 'BoardController@nsfw')->name('boards.nsfw'); // NSFW boards
 // Board
 Route::get('/board/{link}', 'BoardController@show')->name('board');
+Route::get('/board/{link}/catalog', 'BoardController@catalog')->name('board.catalog');
 
 
 // Create boards

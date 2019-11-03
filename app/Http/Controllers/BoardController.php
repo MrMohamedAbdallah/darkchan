@@ -33,6 +33,8 @@ class BoardController extends Controller
 
         return view('boards.boards', compact("boards", "title"));
     }
+    
+    
     /**
      * Show all SFW only
      */
@@ -41,7 +43,6 @@ class BoardController extends Controller
         // Get all boards
         $boards = Board::where('nsfw', '=', 0)->get();
         $title = 'SFW Boards';
-
 
         return view('boards.boards', compact("boards", "title"));
     }
@@ -134,6 +135,34 @@ class BoardController extends Controller
             $threads = $board->threads;
 
             return view("boards.board", compact("board", "threads"));
+        } catch(ModelNotFoundException $e){
+            return abort(404);
+        }
+    }
+
+    /**
+     * Show thread catalog
+     *
+     * @param  \App\Board  $link
+     * @return \Illuminate\Http\Response
+     */
+    public function catalog($link)
+    {
+        try{
+            // Search for the board
+            $board = Board::where("link", "=", $link)->with(["threads" => function($query){
+                // Sort by newest action
+                $query->orderBy('last_action', 'DESC');
+
+                $query->with(['comments' => function($q){
+                    return $q->orderBy('id', 'DESC');
+                }]);
+
+
+            }])->firstOrFail();
+            $threads = $board->threads;
+
+            return view("boards.catalog", compact("board", "threads"));
         } catch(ModelNotFoundException $e){
             return abort(404);
         }
