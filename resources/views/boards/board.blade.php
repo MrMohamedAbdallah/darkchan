@@ -42,7 +42,7 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="content">Body</label>
-            <textarea type="text" name="content" id="content" rows="5"  class="@error('content') invalid @enderror">{{ old('password') }}</textarea>
+            <textarea type="text" name="content" id="content" rows="5"  class="@error('content') invalid @enderror">{{ old('content') }}</textarea>
             @error('content')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
@@ -51,7 +51,7 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="spoiler">Spoiler</label>
-            <input type="checkbox" name="spoiler" id="spoiler" value="{{ old('password') }}" class="@error('spoiler') invalid @enderror">
+            <input type="checkbox" name="spoiler" id="spoiler" {{ old('spoiler') ? 'checked' : ''  }} class="@error('spoiler') invalid @enderror">
             @error('spoiler')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
@@ -177,21 +177,8 @@
 <!-- /Thread -->
 
 
-<!-- ========================== -->
-<!--         Pagination         -->
-<!-- ========================== -->
-<ul class="pagination">
-    <li><a href="#">
-            <</a> </li> <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">...</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">></a></li>
-</ul>
+{{ $threads->links() }}
 
-<!-- /Pagination -->
 
 
 <!-- ============================= -->
@@ -227,6 +214,7 @@
     </div>
 </div>
 <!-- /Model -->
+
 
 
 @endsection

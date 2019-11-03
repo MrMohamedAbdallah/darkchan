@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Board;
+use App\Thread;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -121,18 +122,17 @@ class BoardController extends Controller
     public function show($link)
     {
         try{
-            // Search for the board
-            $board = Board::where("link", "=", $link)->with(["threads" => function($query){
-                // Sort by newest action
-                $query->orderBy('last_action', 'DESC');
+            // Get the board
+            $board = Board::where("link", "=", $link)->firstOrFail();
 
-                $query->with(['comments' => function($q){
-                    return $q->orderBy('id', 'DESC');
-                }]);
-
-
-            }])->firstOrFail();
-            $threads = $board->threads;
+            // Get the threads
+            $threads = Thread::where('board_id', '=', $board->id)
+                                ->orderBy('last_action', 'DESC')
+                                ->with(['comments' => function($query){
+                                    return $query->orderBy('created_at', 'DESC');
+                                }])
+                                ->paginate(10);
+           
 
             return view("boards.board", compact("board", "threads"));
         } catch(ModelNotFoundException $e){
@@ -149,18 +149,13 @@ class BoardController extends Controller
     public function catalog($link)
     {
         try{
-            // Search for the board
-            $board = Board::where("link", "=", $link)->with(["threads" => function($query){
-                // Sort by newest action
-                $query->orderBy('last_action', 'DESC');
+            // Get the board
+            $board = Board::where("link", "=", $link)->firstOrFail();
 
-                $query->with(['comments' => function($q){
-                    return $q->orderBy('id', 'DESC');
-                }]);
-
-
-            }])->firstOrFail();
-            $threads = $board->threads;
+            // Get the threads
+            $threads = Thread::where('board_id', '=', $board->id)
+                                ->orderBy('last_action', 'DESC')
+                                ->paginate(10);
 
             return view("boards.catalog", compact("board", "threads"));
         } catch(ModelNotFoundException $e){
