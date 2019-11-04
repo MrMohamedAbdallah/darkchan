@@ -33,6 +33,28 @@ class ThreadController extends Controller
         //
     }
 
+    public function hasPrivileges($boardID)
+    {
+        // Check for authintication
+        if (!auth()->check()) {
+            return false;
+        }
+
+        // If the user is an owner
+        if(auth()->user()->is_owner){
+            return true;
+        }
+
+        // Check if the user is an admin
+        foreach (auth()->user()->boards()->get() as $board) {
+            if ($board->board_id == $boardID) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -149,18 +171,21 @@ class ThreadController extends Controller
      */
     public function destroy(Request $request)
     {
-        // validate
-        $request->validate([
-            'thread'    => 'required|numeric',
-            'password'  => 'required|min:10|max:20'
-        ]);
+        $isAdmin = $this->hasPrivileges($request->board);
+        if (!$isAdmin) {
+            // validate
+            $request->validate([
+                'thread'    => 'required|numeric',
+                'password'  => 'required|min:10|max:20'
+            ]);
+        }
 
         try {
 
             $thread = Thread::findOrFail($request->thread);
 
             // Check the password
-            if (Hash::check($request->password, $thread->password)) {
+            if ($isAdmin || Hash::check($request->password, $thread->password)) {
                 // Get the file path
                 $filePath1 = $thread->file1;
                 $filePath2 = $thread->file2;

@@ -98,13 +98,14 @@
                 <li data-show="#form{{ $thread->id }}">Delete post</li>
             </ul>
         </div>
-
-
         <!-- /Menu -->
+
+
         <form id="form{{ $thread->id }}" action="{{ route('thread.delete') }}" method="post" class="delete-form">
             @csrf
             @method("DELETE")
             <input type="hidden" name="thread" value="{{ $thread->id }}">
+            <input type="hidden" name="board" value="{{ $board->id }}">
             <div class="form-group">
                 <label>passwrod</label>
                 <input type="password" name="password">
@@ -158,7 +159,7 @@
         <div class="comments" style="display: flex; flex-direction: column-reverse;">
             @foreach($thread->comments->take(5) as $comment)
             {{-- Comment Component --}}
-            @component('components.comment', compact('comment'))
+            @component('components.comment', compact('comment', 'board'))
             @endcomponent
             {{-- /Comment Component --}}
             @endforeach

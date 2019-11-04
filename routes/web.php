@@ -28,9 +28,20 @@ Route::get('/board/{link}/catalog', 'BoardController@catalog')->name('board.cata
 
 
 // Create boards
-Route::get('/boards/create', 'BoardController@create')->name("board.create");
-Route::post('/boards/create', 'BoardController@store')->name("board.store");
-
+Route::group(['middleware'=> ['is_owner']], function(){
+    Route::get('/boards/create', 'BoardController@create')->name("board.create");
+    Route::post('/boards/create', 'BoardController@store')->name("board.store");
+    Route::get('/boards/edit/{link}', 'BoardController@edit')->name("board.edit");
+    Route::put('/boards/edit/{link}', 'BoardController@update')->name("board.update");
+    Route::delete('/boards/delete/{id}', 'BoardController@destroy')->name("board.delete");
+    
+    // User
+    Route::get('/users', 'UserController@index')->name("users");
+    Route::get('/user/{id}', 'UserController@edit')->name("user.edit");
+    Route::put('/user/{id}', 'UserController@update')->name("user.update");
+    
+    
+});
 
 // Threads
 Route::get('/thread/{id}', 'ThreadController@show')->name("thread");

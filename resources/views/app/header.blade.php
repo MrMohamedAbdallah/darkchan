@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{{ asset('css/style.min.css') }}}" />
     <title>{{ config("app.name", "Darkchan") }}</title>
 </head>
+
 <body class="">
     <!-- ============================= -->
     <!--            Navbar             -->
@@ -31,12 +32,24 @@
                 <li>
                     <a href="{{ route("boards.nsfw") }}"><i class="fas fa-hand-paper"></i>NSFW boards</a>
                 </li>
+                @auth
+                @if(auth()->user()->is_owner)
                 <li>
                     <a href="{{ route("board.create") }}"><i class="fas fa-hand-paper"></i>Create Board</a>
                 </li>
                 <li>
+                    <a href="{{ route('users') }}"><i class="fas fa-users"></i>Users</a>
+                </li>
+                @else
+                <li>
+                    Loged
+                </li>
+                @endif
+                @else
+                <li>
                     <a href="/login" class="active"><i class="fas fa-sign-in-alt"></i>Login</a>
                 </li>
+                @endif
             </ul>
         </div>
     </nav>

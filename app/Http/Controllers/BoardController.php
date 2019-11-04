@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Board;
 use App\Thread;
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
+
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class BoardController extends Controller
 {
@@ -169,9 +173,17 @@ class BoardController extends Controller
      * @param  \App\Board  $board
      * @return \Illuminate\Http\Response
      */
-    public function edit(Board $board)
+    public function edit($link)
     {
-        //
+        try{
+            // Find the board
+            $board = Board::where('link', $link)->firstOrFail();
+
+            return view('admins.edit-boards', compact(['board']));
+        }catch (ModelNotFoundException $e){
+            return abort(404);
+        }
+        
     }
 
     /**
@@ -181,9 +193,62 @@ class BoardController extends Controller
      * @param  \App\Board  $board
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Board $board)
+    public function update(Request $request, $link)
     {
-        //
+        try{
+            // Find the board
+            $board = Board::where('link', $link)->firstOrFail();
+
+            
+            $request->validate([
+                'name' => [
+                    'required',
+                    'min:3',
+                    'max:15',
+                    Rule::unique('boards', 'name')->ignore($board->id)],
+                'link' => [
+                    'required',
+                    'min:1',
+                    'max:2',
+                    Rule::unique('boards', 'link')->ignore($board->id)],
+                'cover' =>  'nullable|file|mimes:jpeg,png,gif,jpg|max:2048',
+                'msg' => 'nullable|min:5',
+            ]);
+
+            
+
+            // Delete the file
+            $filePath = '';
+            if($request->cover){
+                Storage::delete('public/' . $board->cover);
+                // Store the file
+                if($request->cover){
+                    $filePath = $request->cover->store('public/files');
+                    // Remove the public path
+                    $filePath = explode('/',$filePath);
+                    $filePath = array_slice($filePath, 1);
+                    $filePath = implode('/', $filePath);
+                }
+            }
+
+
+    
+            
+            $board->name = $request->name;
+            $board->link = $request->link;
+            $board->msg = $request->msg ? $request->msg : '' ;
+            $board->nsfw = $request->nsfw ? 1 : 0;
+            $board->cover = $filePath ? $filePath : $board->cover;
+    
+    
+            $board->save();
+
+
+
+            return redirect()->route('board.edit', $board->link);
+        }catch (ModelNotFoundException $e){
+            return abort(404);
+        }
     }
 
     /**
@@ -192,8 +257,13 @@ class BoardController extends Controller
      * @param  \App\Board  $board
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Board $board)
+    public function destroy($id)
     {
-        //
+        try{
+            Board::where('id', $id)->delete();
+            return redirect()->route('boards');
+        } catch(Exception $e){
+            return abort(404);
+        }
     }
 }

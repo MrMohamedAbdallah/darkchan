@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    // Boards relationship
+    public function boards(){
+        return $this->belongsToMany('App\Board', 'board_user', 'user_id', 'board_id')->select(['board_id']);
+    }
+
+
+    // public function canChange($board_id){
+    //     return $this->boards->has($board_id);
+    // }
+
 }

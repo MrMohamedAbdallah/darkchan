@@ -25,6 +25,28 @@ class CommentController extends Controller
         //
     }
 
+    public function hasPrivileges($boardID)
+    {
+        // Check for authintication
+        if (!auth()->check()) {
+            return false;
+        }
+
+        // If the user is an owner
+        if (auth()->user()->is_owner) {
+            return true;
+        }
+
+        // Check if the user is an admin
+        foreach (auth()->user()->boards()->get() as $board) {
+            if ($board->board_id == $boardID) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -54,18 +76,18 @@ class CommentController extends Controller
         // Store the file
         $filePath1 = '';
         $filePath2 = '';
-        if($request->file){
+        if ($request->file) {
             $filePath1 = $request->file->store('public/files');
             // Remove the public path
             // File 1
-            $filePath1 = explode('/',$filePath1);
+            $filePath1 = explode('/', $filePath1);
             $filePath1 = array_slice($filePath1, 1);
             $filePath1 = implode('/', $filePath1);
             // File 2
-            $filePath2 = explode('/',$filePath2);
+            $filePath2 = explode('/', $filePath2);
             $filePath2 = array_slice($filePath2, 1);
             $filePath2 = implode('/', $filePath2);
-            try{
+            try {
 
                 // Reize the second image
                 $img = Image::make($request->file->getRealPath())->resize(200, null, function ($constraint) {
@@ -76,10 +98,9 @@ class CommentController extends Controller
                 $filePath2 = explode('.', $filePath1);
                 $filePath2 = $filePath2[0] . '-small' . '.' . $filePath2[1];
                 $img->save('../storage/app/public/' . $filePath2);
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 die("File uploading error");
             }
-            
         }
 
 
@@ -148,18 +169,21 @@ class CommentController extends Controller
      */
     public function destroy(Request $request)
     {
-        // validate
-        $request->validate([
-            'comment'    => 'required|numeric',
-            'password'  => 'required|min:10|max:20'
-        ]);
+        $isAdmin = $this->hasPrivileges($request->board);
+        if (!$isAdmin) {
+            // validate
+            $request->validate([
+                'comment'    => 'required|numeric',
+                'password'  => 'required|min:10|max:20'
+            ]);
+        }
 
         try {
 
             $comment = Comment::findOrFail($request->comment);
 
             // Check the password
-            if (Hash::check($request->password, $comment->password)) {
+            if ($isAdmin || Hash::check($request->password, $comment->password)) {
                 // Get the file path
                 $filePath1 = $comment->file1;
                 $filePath2 = $comment->file2;

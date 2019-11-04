@@ -16,6 +16,7 @@
         @csrf
         @method("DELETE")
         <input type="hidden" name="comment" value="{{ $comment->id }}">
+        <input type="hidden" name="board" value="{{ $board->id }}">
         <div class="form-group">
             <label>passwrod</label>
             <input type="password" name="password">

@@ -21,9 +21,24 @@
             <i class="fas fa-ellipsis-v menu-icon"></i>
             <ul class="menu-list">
                 <li>Report post</li>
+                <li data-show="#form{{ $thread->id }}">Delete post</li>
             </ul>
         </div>
         <!-- /Menu -->
+
+        <form id="form{{ $thread->id }}" action="{{ route('thread.delete') }}" method="post" class="delete-form">
+            @csrf
+            @method("DELETE")
+            <input type="hidden" name="thread" value="{{ $thread->id }}">
+            <input type="hidden" name="board" value="{{ $board->id }}">
+            <div class="form-group">
+                <label>passwrod</label>
+                <input type="password" name="password">
+            </div>
+            <div class="form-group">
+                <button type="submit">Delete</button>
+            </div>
+        </form>
 
 
         <!-- Header -->
@@ -67,7 +82,7 @@
         <div class="comments">
             @foreach($thread->comments as $comment)
             {{-- Comment Component --}}
-            @component('components.comment', compact('comment'))
+            @component('components.comment', compact('comment', 'board'))
             @endcomponent
             {{-- /Comment Component --}}
             @endforeach
@@ -99,7 +114,8 @@
             <!-- Group -->
             <div class="form-group">
                 <label for="name">name: </label>
-                <input type="text" name="name" id="name" placeholder="Anonymous" class="form-control @error('name') invalid @enderror">
+                <input type="text" name="name" id="name" placeholder="Anonymous"
+                    class="form-control @error('name') invalid @enderror">
                 @error('name')
                 <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -108,7 +124,8 @@
             {{-- Group --}}
             <div class="form-group">
                 <label for="password">Password: </label>
-                <input type="texst" name="password" id="password" class="form-control @error('password') invalid @enderror" value="V3rYsTr0nGP@ss#0rd">
+                <input type="texst" name="password" id="password"
+                    class="form-control @error('password') invalid @enderror" value="V3rYsTr0nGP@ss#0rd">
                 @error('password')
                 <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
@@ -117,7 +134,8 @@
             {{-- Group --}}
             <div class="form-group">
                 <label for="content">Body: </label>
-                <textarea name="content" id="content" cols="30" rows="10" class="form-control @error('content') invalid @enderror"></textarea>
+                <textarea name="content" id="content" cols="30" rows="10"
+                    class="form-control @error('content') invalid @enderror"></textarea>
                 @error('content')
                 <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
