@@ -44,11 +44,13 @@
                 <li>
                     <a href="{{ route('users') }}"><i class="fas fa-users"></i>Users</a>
                 </li>
-                @else
-                <li>
-                    Loged
-                </li>
                 @endif
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
                 @else
                 <li>
                     <a href="/login" class="active"><i class="fas fa-sign-in-alt"></i>Login</a>
