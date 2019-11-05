@@ -71,6 +71,7 @@ class ThreadController extends Controller
             'password'  => 'required|min:10|max:20',
             'content'  => 'required|min:10',
             'file'  => 'nullable|file|mimes:jpeg,png,gif,jpg|max:2048',
+            'g-recaptcha-response'    => 'required|recaptcha'
         ]);
 
         // Store the file

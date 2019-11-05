@@ -75,6 +75,10 @@
         </div>
         {{-- /Group  --}}
 
+        {{-- Recaptcha --}}
+        @component('components.recaptcha')
+        @endcomponent
+        
 
         <!-- Submit -->
         <div class="form-group btn-wrapper">

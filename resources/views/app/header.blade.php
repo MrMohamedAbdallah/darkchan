@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="{{ asset('css/custom.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}" />
     <link rel="stylesheet" href="{{{ asset('css/style.min.css') }}}" />
+
+    {{-- Recaptcha --}}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <title>{{ config("app.name", "Darkchan") }}</title>
 </head>
 

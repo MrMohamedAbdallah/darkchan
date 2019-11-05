@@ -71,6 +71,7 @@ class CommentController extends Controller
             'content'   => 'required',
             'password'   => 'required|min:3|max:20',
             'file'  => 'nullable|file|mimes:jpeg,png,gif,jpg|max:2048',
+            'g-recaptcha-response'    => 'required|recaptcha'
         ]);
 
         // Store the file

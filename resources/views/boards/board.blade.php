@@ -15,7 +15,8 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title" value="{{ old('title') }}" class="@error('title') invalid @enderror"/>
+            <input type="text" name="title" id="title" value="{{ old('title') }}"
+                class="@error('title') invalid @enderror" />
             @error('title')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
@@ -24,7 +25,8 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" name="name" id="name" placeholder="Anonymous" value="{{ old('name') }}"   class="@error('name') invalid @enderror"/>
+            <input type="text" name="name" id="name" placeholder="Anonymous" value="{{ old('name') }}"
+                class="@error('name') invalid @enderror" />
             @error('name')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
@@ -33,7 +35,9 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="password">password</label>
-            <input type="text" name="password" id="password" value="{{  old('password') ? old('password') : 'V3rYsTr0nGP@ss#0rd' }}"  class="@error('password') invalid @enderror"/>
+            <input type="text" name="password" id="password"
+                value="{{  old('password') ? old('password') : 'V3rYsTr0nGP@ss#0rd' }}"
+                class="@error('password') invalid @enderror" />
             @error('password')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
@@ -42,7 +46,8 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="content">Body</label>
-            <textarea type="text" name="content" id="content" rows="5"  class="@error('content') invalid @enderror">{{ old('content') }}</textarea>
+            <textarea type="text" name="content" id="content" rows="5"
+                class="@error('content') invalid @enderror">{{ old('content') }}</textarea>
             @error('content')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
@@ -51,7 +56,8 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="spoiler">Spoiler</label>
-            <input type="checkbox" name="spoiler" id="spoiler" {{ old('spoiler') ? 'checked' : ''  }} class="@error('spoiler') invalid @enderror">
+            <input type="checkbox" name="spoiler" id="spoiler" {{ old('spoiler') ? 'checked' : ''  }}
+                class="@error('spoiler') invalid @enderror">
             @error('spoiler')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
@@ -60,12 +66,19 @@
         {{-- Group --}}
         <div class="form-group">
             <label for="file">Picture</label>
-            <input type="file" name="file" id="file" value="{{ old('password') }}" class="@error('file') invalid @enderror">
+            <input type="file" name="file" id="file" value="{{ old('password') }}"
+                class="@error('file') invalid @enderror">
             @error('file')
             <span class="invalid-feedback">{{ $message }}</span>
             @enderror
         </div>
         {{-- /Group  --}}
+
+
+        {{-- Recaptcha --}}
+        @component('components.recaptcha')
+        @endcomponent
+        
 
 
         <!-- Submit -->
