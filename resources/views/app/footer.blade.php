@@ -14,7 +14,7 @@
             <a href="{{ route("boards.nsfw") }}"><i class="fas fa-hand-paper"></i>NSFW boards</a>
         </li>
         <li>
-            <a href="#"><i class="fas fa-sign-in-alt"></i>Login</a>
+            <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
         </li>
     </ul>
 </footer>

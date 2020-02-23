@@ -25,16 +25,16 @@
         <div class="container">
             <ul class="navbar-nav">
                 <li>
-                    <a href="{{ route("home") }}"><i class="fas fa-home"></i>Home</a>
+                    <a href="{{ route("home") }}" class="{{ activeLink("/") }}"><i class="fas fa-home"></i>Home</a>
                 </li>
                 <li>
-                    <a href="{{ route("boards") }}"><i class="fas fa-tag"></i>Boards</a>
+                    <a href="{{ route("boards") }}" class="{{ activeLink("boards") }}"><i class="fas fa-tag"></i>Boards</a>
                 </li>
                 <li>
-                    <a href="{{ route("boards.sfw") }}"><i class="fas fa-briefcase"></i>SFW boards</a>
+                    <a href="{{ route("boards.sfw") }}" class="{{ activeLink("boards/sfw") }}"><i class="fas fa-briefcase"></i>SFW boards</a>
                 </li>
                 <li>
-                    <a href="{{ route("boards.nsfw") }}"><i class="fas fa-hand-paper"></i>NSFW boards</a>
+                    <a href="{{ route("boards.nsfw") }}" class="{{ activeLink("boards/nsfw") }}"><i class="fas fa-hand-paper"></i>NSFW boards</a>
                 </li>
                 @auth
                 @if(auth()->user()->is_owner)
@@ -53,7 +53,7 @@
                 </li>
                 @else
                 <li>
-                    <a href="/login" class="active"><i class="fas fa-sign-in-alt"></i>Login</a>
+                    <a href="/login" class="{{ activeLink("login") }}"><i class="fas fa-sign-in-alt"></i>Login</a>
                 </li>
                 @endif
             </ul>
