@@ -19,6 +19,18 @@
     </ul>
 </footer>
 
+{{-- Spolir script --}}
+<script>
+    let elements = document.querySelectorAll(".thread-text");
+
+    elements.forEach( e => {
+        let text = e.innerHTML;
+        text = text.replace(/\[spoiler\](.*)\[\/spoiler\]/ig, "<span class='spoiler-text'>" + "$1" + "</span>");
+
+        e.innerHTML = text;
+    });
+
+</script>
 
 
 <script src="{{ asset('/js/jquery.min.js') }}"></script>
