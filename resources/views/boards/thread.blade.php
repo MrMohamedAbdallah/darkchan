@@ -123,8 +123,8 @@
             <!-- /Group -->
             {{-- Group --}}
             <div class="form-group">
-                <label for="password">Password: </label>
-                <input type="texst" name="password" id="password"
+                <label for="comment_password">Password: </label>
+                <input type="texst" name="password" id="comment_password"
                     class="form-control @error('password') invalid @enderror" value="V3rYsTr0nGP@ss#0rd">
                 @error('password')
                 <span class="invalid-feedback">{{ $message }}</span>
@@ -176,6 +176,14 @@
     <!-- /Form container -->
 </div>
 
+{{-- Generate new random password --}}
+<script>
+    let passowrdInput = document.querySelectorAll("#comment_password, #thread_password");
+    
+    passowrdInput.forEach(p => {
+        p.value = Math.random().toString(36).slice(-10);
+    })
 
+</script>
 
 @endsection

@@ -34,8 +34,8 @@
         {{-- /Group  --}}
         {{-- Group --}}
         <div class="form-group">
-            <label for="password">password</label>
-            <input type="text" name="password" id="password"
+            <label for="thread_password">password</label>
+            <input type="text" name="password" id="thread_password"
                 value="{{  old('password') ? old('password') : 'V3rYsTr0nGP@ss#0rd' }}"
                 class="@error('password') invalid @enderror" />
             @error('password')
@@ -229,6 +229,14 @@
 </div>
 <!-- /Model -->
 
+{{-- Generate new random password --}}
+<script>
+    let passowrdInput = document.querySelectorAll("#comment_password, #thread_password");
+    
+    passowrdInput.forEach(p => {
+        p.value = Math.random().toString(36).slice(-10);
+    })
 
+</script>
 
 @endsection

@@ -39,10 +39,10 @@
                 @auth
                 @if(auth()->user()->is_owner)
                 <li>
-                    <a href="{{ route("board.create") }}"><i class="fas fa-hand-paper"></i>Create Board</a>
+                    <a href="{{ route("board.create") }}" class="{{ activeLink("boards/create") }}"><i class="fas fa-hand-paper"></i>Create Board</a>
                 </li>
                 <li>
-                    <a href="{{ route('users') }}"><i class="fas fa-users"></i>Users</a>
+                    <a href="{{ route('users') }}" class="{{ activeLink("users") }}"><i class="fas fa-users"></i>Users</a>
                 </li>
                 @endif
                 <li>
