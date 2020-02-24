@@ -21,7 +21,7 @@ class BoardController extends Controller
     public function home()
     {
         // Get all boards
-        $boards = Board::all();
+        $boards = Board::orderBy('created_at', 'DESC')->get();
 
         return view('home')->with('boards', $boards);
     }
@@ -33,7 +33,7 @@ class BoardController extends Controller
     public function index()
     {
         // Get all boards
-        $boards = Board::all();
+        $boards = Board::orderBy('created_at', 'DESC')->get();
         $title = 'Boards';
 
         return view('boards.boards', compact("boards", "title"));
@@ -46,7 +46,7 @@ class BoardController extends Controller
     public function sfw()
     {
         // Get all boards
-        $boards = Board::where('nsfw', '=', 0)->get();
+        $boards = Board::where('nsfw', '=', 0)->orderBy('created_at', 'DESC')->get();
         $title = 'SFW Boards';
 
         return view('boards.boards', compact("boards", "title"));
@@ -57,7 +57,7 @@ class BoardController extends Controller
     public function nsfw()
     {
         // Get all boards
-        $boards = Board::where('nsfw', '=', 1)->get();
+        $boards = Board::where('nsfw', '=', 1)->orderBy('created_at', 'DESC')->get();
         $title = 'NSFW Boards';
 
         return view('boards.boards', compact("boards", "title"));
