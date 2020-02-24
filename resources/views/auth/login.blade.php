@@ -5,7 +5,7 @@
 
 <!-- Form container -->
 <div class="form-container container">
-    <form action="{{ route('login') }}" method="POST" class="border col-5">
+    <form action="{{ route('login') }}" method="POST" class="border col-6 col-sm-12">
         @csrf
         <!-- Group -->
         <div class="form-group">
