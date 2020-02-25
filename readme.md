@@ -1,7 +1,7 @@
  # **4chan clone 😁, Darkchan 😈**
- #### Darkchan is a Laravel 4chan clone with a modren look.
+ #### Darkchan is a Laravel 4chan clone with a modern look and technologies.
 
- One of the things that I love about 4chan is how old and nostalgic it looks, But I wanted to try to redesign it with a modren look 😁.
+ One of the things that I love about 4chan is how old and nostalgic it looks, But I wanted to try to redesign it with a modern look 😁.
 
 ## **Install**
 --------------------
@@ -35,11 +35,11 @@ php artisan db:seed
 **What I learned from it 😊**
 
 - [x] Using Google recaptcha
-- [x] Making small images copy for small sizes using `intervention/image` liberary
-- [x] Giving usres access to password protected resources
+- [x] Making small images copy for small sizes using `intervention/image` library
+- [x] Giving users access to password protected resources
 
 
-### **Tools, Framworks And Libraries**
+### **Tools, Frameworks And Libraries**
 --------------------------------------
 1. Design
     * Adobe XD
