@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/style.min.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- ============================= -->
+    <!--            Navbar             -->
+    <!-- ============================= -->
+    <nav class="navbar">
+      <div class="container">
+        <ul class="navbar-nav">
+          <li>
+            <a href="/"><i class="fas fa-home"></i>Home</a>
+          </li>
+          <li>
+            <a href="/boards.html"><i class="fas fa-tag"></i>Boards</a>
+          </li>
+          <li>
+            <a href="/login.html"><i class="fas fa-briefcase"></i>SFW boards</a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-hand-paper"></i>NSFW boards</a>
+          </li>
+          <li>
+            <a href="/login" class="active"><i class="fas fa-sign-in-alt"></i>Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Form container -->
+    <div class="form-container">
+        <form action="%Action%" method="POST" class="border col-5">
+            <!-- Group -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </div>
+            <!-- /Group -->
+            <!-- Group -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
+            <!-- /Group -->
+            <!-- Group -->
+            <div class="form-group">
+                <label for="confirm-password">Confirm password</label>
+                <input type="password" name="password_confirmation" id="confirm-password">
+            </div>
+            <!-- /Group -->
+
+            <!-- Submit -->
+            <div class="form-group">
+                <button type="submit">Regsiter</button>
+            </div>
+        </form>
+    </div>
+    <!-- /Form container -->
+
+    <!-- ============================= -->
+    <!--            Footer             -->
+    <!-- ============================= -->
+    <footer>
+      <ul class="navbar-nav">
+        <li>
+          <a href="/"><i class="fas fa-home"></i>Home</a>
+        </li>
+        <li>
+          <a href="/boards.html"><i class="fas fa-tag"></i>Boards</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-briefcase"></i>SFW boards</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-hand-paper"></i>NSFW boards</a>
+        </li>
+        <li>
+          <a href="/login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+        </li>
+      </ul>
+    </footer>
+
+    <script src="js/app.min.js"></script>
+  </body>
+</html>

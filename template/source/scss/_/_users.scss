@@ -1,0 +1,43 @@
+.users{
+    padding-top: 75px;
+}
+
+table{
+    width: 100%;
+    overflow-x: auto;
+    text-align: center;
+    border-collapse: collapse;
+    font-weight: bold;
+
+    &, th, td{
+        border: 2px solid color('light-blue');
+        margin: 0px;
+    }
+    thead{
+        td{
+            background-color: color('light-blue');
+            border: 2px solid color('dark-2');
+            color: color('dark')
+            
+        }
+    }
+    td{
+        background-color: color('dark');
+    }
+    td{
+        padding: 15px 10px;
+    }
+
+    tbody{
+        tr:nth-child(2n){
+            td{
+                background-color: color('dark-2');
+            }
+        }
+        tr:nth-child(1n){
+            td{
+                background-color: color('dark-1');
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.pagination{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    li{
+        display: inline-block;
+        color: color("light-blue");
+        padding: 5px;
+        font-size: 12px;
+        font-weight: bolder;
+        background-color: color("dark-2");
+        border: 2px solid color("light-blue");
+        border-radius: 5px;
+        margin: 5px;
+        &.active{
+            color: white;
+            background-color: color("light-blue");
+        }
+
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+    }
+}

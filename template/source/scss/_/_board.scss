@@ -1,0 +1,444 @@
+.banner {
+  width: 100%;
+  min-height: 100px;
+  max-height: 400px;
+  // margin-top: 75px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.titles {
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px 0px;
+    @include md {
+      font-size: 24px;
+    }
+  }
+  mark {
+    color: color("light-blue");
+    background-color: transparent;
+  }
+  a,
+  button {
+    text-decoration: none;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+}
+
+.board-msg {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  color: color("white");
+  border: 4px solid color("light-blue");
+  border-right-color: transparent;
+  border-left-color: transparent;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.thread {
+  margin: 30px 0px;
+  background-color: color("dark-3");
+  border: 4px solid color("light-blue");
+  border-radius: 20px;
+  padding: 10px 20px;
+  position: relative;
+  @include md {
+    padding: 10px;
+  }
+  .menu {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    .menu-icon {
+      cursor: pointer;
+    }
+    .menu-list {
+      display: none;
+      padding: 0px;
+      margin: 0px;
+      list-style: none;
+      border-radius: 5px;
+      background-color: color("dark-2");
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      border: 2px solid white;
+      li {
+        padding: 10px 5px;
+        &:not(:last-child) {
+          border-bottom: 1px solid color("white");
+        }
+        &:hover {
+          background-color: lighten(color("dark-2"), 10);
+          cursor: pointer;
+        }
+      }
+
+      // Arrow
+      &::before {
+        content: "";
+        border: 10px solid color("whilte");
+        border-right-color: transparent;
+        border-top-color: transparent;
+        border-left-color: transparent;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    // Show/Hide
+    &.show {
+      z-index: 10;
+      .menu-list {
+        display: block;
+      }
+    }
+  }
+}
+
+.thread-header {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.thread-header-text {
+  // To be extended
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.thread-title {
+  @extend .thread-header-text;
+  @include md {
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  color: color("violet");
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.thread-name {
+  @extend .thread-header-text;
+  color: color("light-blue");
+}
+
+.thread-date {
+  font-size: 12px;
+  font-size: 500;
+  color: color("white");
+  opacity: 0.5;
+}
+
+.thread-text {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+
+.files {
+  [class^="col"] {
+    padding-left: 0px;
+  }
+}
+
+@mixin spoiler {
+  &.spoiler {
+    position: relative;
+    min-height: 200px;
+    &::before {
+      content: "Spoiler";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: color("black");
+      font-weight: bold;
+      font-size: 24px;
+    }
+  }
+}
+
+.file {
+  @extend .col-3;
+  @extend .col-md-6;
+  height: auto;
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  // Show and hide
+  &.show {
+    width: 100%;
+    max-width: none;
+    &.spoiler {
+      &::before {
+        display: none;
+      }
+    }
+    img {
+      width: auto;
+      height: auto;
+      max-height: none;
+    }
+  }
+
+  @include spoiler();
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+}
+
+.comments {
+  margin: 20px 0px;
+  padding: 20px 0px;
+  border-radius: 15px;
+  background-color: color("dark-2");
+  @include md {
+    padding: 10px 0px;
+  }
+
+  .comment {
+    padding: 20px;
+    margin: 10px 0px;
+    position: relative;
+    border-bottom: 2px solid color("white");
+
+    &:first-child {
+      padding-top: 0px;
+    }
+    &:last-child {
+      padding-bottom: 0px;
+    }
+  }
+
+  .thread-header {
+    margin-bottom: 10px;
+  }
+
+  .btn-wrapper {
+    button {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.btn-wrapper {
+  text-align: right;
+
+  .btn-block,
+  a.btn-block{
+    display: block;
+    width: 100%;
+  }
+
+}
+
+
+.btn-block,
+a.btn-block,
+.btn-wrapper button,
+.btn-wrapper a {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  color: color("dark");
+  border: none;
+  border-radius: 8px;
+  background-color: color("light-blue");
+  padding: 10px;
+  margin: 20px 0px;
+  cursor: pointer;
+  &:hover {
+    background-color: darken(color("light-blue"), 10);
+  }
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.btn-wrapper button,
+.btn-wrapper a{
+  width: auto;
+  display: inline-block;
+  padding: 10px 20px;
+}
+.btn-danger{
+  background-color: color('danger') !important;
+  color: color('white') !important;
+}
+
+.btn-normal {
+  @extend .btn-block;
+  display: inline;
+  width: auto;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.modal {
+  padding: 20px;
+  background-color: color("dark");
+  width: 500px;
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  border: 2px solid color("light-blue");
+  border-radius: 10px;
+
+  // Show and hide
+  display: none;
+  &.show {
+    display: block;
+    animation: show-modal 1s forward;
+  }
+
+  .form-container {
+    height: auto;
+    min-height: auto;
+    display: block;
+  }
+  .form-container,
+  form {
+    width: 100%;
+    border: none;
+    margin: auto;
+    border-radius: 0px;
+    background-color: transparent;
+    padding: 0px;
+  }
+
+  .form-group {
+    margin: 0px 0px 10px 0px !important;
+  }
+  input {
+    font-size: 16px;
+    border-radius: 7px;
+  }
+
+  button {
+    @extend .btn-normal;
+    margin: 0px;
+    display: inline;
+    border-radius: 5px;
+    padding: 10px 30px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    &:hover {
+      color: color("light-blue");
+    }
+  }
+}
+
+@keyframes show-modal {
+  0% {
+    opacity: 0;
+    top: 0%;
+  }
+  100% {
+    opacity: 1;
+    top: 50%;
+  }
+}
+
+// ====================
+//      Gatalog
+// ====================
+.thread-card {
+  margin: 20px 0px;
+  background-color: color("dark");
+  padding: 20px;
+  border: 2px solid color("light-blue");
+  border-radius: 5px;
+
+  img {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    margin: 0px auto;
+  }
+
+  .thread-info {
+    margin: 5px 0px;
+    .title {
+      color: color("violet");
+      font-size: 14px;
+      font-weight: bold;
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      &:hover {
+        color: darken(color("violet"), 10);
+      }
+    }
+    .name {
+      display: inline-block;
+      margin-right: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      color: color("light-blue");
+    }
+    .date {
+      font-size: 12px;
+      color: color("white");
+      opacity: 0.8;
+    }
+  }
+
+  .thread-text,
+  .thread-text p {
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+  }
+
+  .card-img{
+    @include spoiler;
+    &[data-spoiler]{
+      cursor: pointer;
+    }
+  }
+}

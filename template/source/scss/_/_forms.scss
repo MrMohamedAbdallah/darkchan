@@ -1,0 +1,89 @@
+.form-container {
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    display: block;
+    margin: auto;
+    color: color("dark");
+    background-color: color("light-blue");
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 110px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    &:hover {
+      background-color: darken(color("light-blue"), 20);
+    }
+  }
+}
+
+form {
+  padding: 20px;
+  background-color: color("dark");
+}
+
+.form-group:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: color("light-blue");
+  margin-bottom: 7px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: color("dark");
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+}
+
+.invalid-feedback {
+  color: color("danger");
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+  display: none;
+}
+
+.invalid {
+  border: 2px solid color("danger") !important;
+}
+.invalid + .invalid-feedback {
+  display: block;
+}
+
+.delete-form {
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: color("danger");
+    color: color('white');
+    cursor: pointer;
+    &:hover{
+        background-color: darken(color('danger'), 10);
+    }
+  }
+}
+
+form.delete-form{
+    display: none;
+}

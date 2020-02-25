@@ -1,0 +1,72 @@
+$numberOfColumns: 12;
+$gutter: 30px;
+
+$sizes: (
+    'md': 1100px,
+    'sm': 680px 
+);
+
+// Mixins
+@mixin md(){
+    @media all and (max-width: 1100px ){
+        @content;
+    }
+}
+@mixin sm(){
+    @media all and (max-width: 680px ){
+        @content;
+    }
+}
+
+.container{
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    padding-right: 105px;
+    padding-left: 105px;
+    @include md{
+        padding-right: 30px;
+        padding-left: 30px;
+        
+    }
+}
+
+.container-fluid{
+    @extend .container;
+    width: 100%;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+.col{
+    flex-grow: 1;
+}
+[class^="col"]{
+    padding-left: $gutter / 2;
+    padding-right: $gutter / 2;
+}
+
+
+
+// Create the columns
+@for $i from 1 through $numberOfColumns{
+
+    .col-#{$i}{
+        width: (100% / 12) * $i;
+    }
+
+    @each $name, $value in $sizes{
+
+        @media all and (max-width: $value ){
+            .col-#{$name}-#{$i}{
+                width: (100% / 12) * $i;
+            }
+        }
+
+    }
+
+}
+
+
