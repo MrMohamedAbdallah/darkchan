@@ -78,7 +78,7 @@ php artisan db:seed
 See the design on 
 [Behance](https://www.behance.net/gallery/92796147/Darkchan)
 
-Video preview for the website [Vimeo](https://vimeo.com/user108744720/review/393610998/00e7e8de80)
+Video preview for the website [Vimeo](https://vimeo.com/393610998)
 
 My
 [Twitter](https://twitter.com/MrMohamed98) | 
